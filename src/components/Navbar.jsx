@@ -17,15 +17,14 @@ const NAV_ITEMS = [
   { to: '/sign-up', label: 'Sign-up' },
 ];
 
-const navLinkClass = ({ isActive }) =>
-  (isActive ? 'active font-medium ' : '') + 'no-underline';
+
 
 function NavItems() {
   return (
     <>
       {NAV_ITEMS.map(({ to, end, label }) => (
         <li key={to} >
-          <NavLink to={to} end={end} className={navLinkClass}>
+          <NavLink to={to} end={end} className={"pb-1"}>
             {label}
           </NavLink>
         </li>
