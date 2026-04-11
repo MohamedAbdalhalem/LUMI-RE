@@ -6,7 +6,6 @@ import Products from './pages/Products';
 import SkinQuiz from './pages/SkinQuiz';
 import Orders from './pages/Orders';
 import SignIn from './pages/SignIn';
-import SignOut from './pages/SignOut';
 import SignUp from './pages/SignUp';
 
 const router = createBrowserRouter([
@@ -19,7 +18,6 @@ const router = createBrowserRouter([
       { path: 'skin-quiz', element: <SkinQuiz /> },
       { path: 'orders', element: <Orders /> },
       { path: 'sign-in', element: <SignIn /> },
-      { path: 'sign-out', element: <SignOut /> },
       { path: 'sign-up', element: <SignUp /> },
       { path: '*', element: <NotFoundPage /> },
     ],

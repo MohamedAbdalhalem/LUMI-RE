@@ -21,6 +21,36 @@ body {
   background-position: center;
 }
 
+#sign-in-leftPart{
+  background: 
+    linear-gradient(
+      to left,
+      #0C0A09CC 0%,
+      #0C0A09CC 20%,
+      #0C0A0900 100%
+    ),
+    url("./assets/011bec276d72905b47052cbeea4b8fb230154bca.png");
+  
+  background-size: cover;
+  background-position: center;
+}
+
+#sign-up-leftPart{
+  background: 
+    linear-gradient(
+    
+      #1C19170D 100%
+    ),
+    url("./assets/367c2448a94e4c33cdbcfc4251fc793f96381df2.png");
+  
+  background-size: cover;
+  background-position: center;
+}
+
+.bg-white-50 {
+  color: rgba(255,255, 255, 0.5)
+}
+
 .text-white-70 {
   color: rgba(255,255, 255, 0.7)
 }
@@ -31,4 +61,5 @@ body {
 .active {
   border-bottom: 1px solid #0F172A;
   font-weight: bold;
+  color: #0F172A;
 }
