@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+  themes: winter --default, night --prefersdark;
+}
+
+@custom-variant dark (&:where([data-theme=night], [data-theme=night] *));
 
 body { 
   font-family: 'Times New Roman', Times, serif;
@@ -11,8 +15,8 @@ body {
     linear-gradient(
       to right,
       rgba(39, 39, 39, 0.85) 0%,   
-      rgba(39, 39, 39, 0.6) 40%,  
-      rgba(39, 39, 39, 0.3) 70%,  
+      rgba(39, 39, 39, 0.6) 20%,  
+      rgba(39, 39, 39, 0.3) 80%,  
       rgba(39, 39, 39, 0.1) 100%  
     ),
     url("./assets/laboratory-science.png");
@@ -67,4 +71,8 @@ body {
 .dark .active {
   border-bottom: 1px solid #F0E8D5;
   color: #F0E8D5;
+}
+
+h1{
+  background-color:  #f5f3f166
 }

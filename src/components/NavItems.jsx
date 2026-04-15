@@ -5,7 +5,6 @@ const NAV_ITEMS = [
   { to: "/products", label: "Products" },
   { to: "/orders", label: "Orders" },
   { to: "/addresses", label: "Addresses" },
-  { to: "/admin", label: "Admin" },
   { to: "/sign-in", label: "Sign-in" },
 ];
 

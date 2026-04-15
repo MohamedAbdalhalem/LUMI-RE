@@ -1,78 +1,137 @@
-import image from "../assets/3f546d1826f0ded04fad4e0a9778d4ddb80b84e0.png";
-import Button from "../components/Button";
+import useProductDetials from "../hooks/useProductDetials";
 
 export default function ProductDetials() {
+  const { productDetials, selectedVariant, setSelectedVariant, isLoading } =
+    useProductDetials();
   return (
     <section className="bg-base-100 min-h-screen py-12">
       {/* PRODUCT TOP SECTION */}
-      <div className="grid items-center gap-10 px-4 py-8 md:px-8 lg:grid-cols-7 lg:gap-16 max-w-7xl mx-auto">
-        <div className="overflow-hidden rounded-2xl bg-base-200 lg:col-span-4 self-start">
-          <img
-            src={image}
-            alt="Niacinamide Serum"
-            className="mx-auto h-[350px] w-full object-contain md:h-[450px]"
-          />
-        </div>
-        
-        <div className="lg:col-span-3">
-          <p className="mb-3 text-[10px] tracking-widest text-base-content/60">
-            MOLECULAR SERIES 01
-          </p>
-          <h1 className="mb-3 text-3xl leading-tight font-light text-base-content md:text-4xl lg:text-5xl">
-            Niacinamide <span className="font-medium">Serum</span>
-          </h1>
-          <p className="mb-6 text-base leading-relaxed text-base-content/70 md:text-lg">
-            Advanced 10% B3 Complex for surface refinement and barrier support.
-          </p>
-          
-          <div className="mb-6 flex items-center gap-3">
-            <p className="text-xl font-medium text-base-content md:text-2xl">
-              $84.00
-            </p>
-            <span className="text-xs tracking-wide text-base-content/50">
-              TAX INCLUDED
+      {isLoading && <ProductDetialsSkeleton />}
+      {!isLoading && (
+        <div className="grid items-start gap-8 px-4 py-8 md:px-8 lg:grid-cols-7 lg:gap-12 max-w-7xl mx-auto">
+          {/* Image Section */}
+          <div className="relative overflow-hidden rounded-3xl bg-white shadow-sm lg:col-span-4 flex items-center justify-center p-5 sm:p-6">
+            {/* Category badge */}
+            <span className="absolute top-4 left-4 bg-black text-white text-[10px] sm:text-xs px-3 py-1 z-10 rounded-full tracking-wide">
+              {productDetials?.category?.category_name}
             </span>
-          </div>
-          
-          <div className="mb-6">
-            <p className="mb-3 text-[10px] tracking-widest text-base-content/60">
-              SELECT VOLUME
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <button
-                type="button"
-                className="border-2 border-primary bg-base-100 px-5 py-3 text-xs tracking-wide transition font-semibold"
-              >
-                30ML
-              </button>
-              <button
-                type="button"
-                className="border border-base-300 bg-base-200/50 px-5 py-3 text-xs text-base-content/70 transition hover:border-primary"
-              >
-                50ML
-              </button>
+
+            {/* Image */}
+            <div className="w-full max-w-md sm:max-w-lg md:max-w-xl">
+              <img
+                src={productDetials?.images[0].image_url}
+                alt={productDetials?.product_name}
+                className="w-full h-auto object-contain transition duration-500 hover:scale-105"
+              />
             </div>
           </div>
-          
-          <button className="btn btn-neutral w-full rounded-xl tracking-widest text-xs h-12 uppercase mb-6">
-            Add to Bag
-          </button>
-          
-          <div className="flex flex-wrap gap-2">
-            {["VEGAN", "CLINICAL GRADE", "CRUELTY FREE"].map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full bg-base-200 px-4 py-1.5 text-[10px] tracking-wide text-base-content/70 font-semibold"
+
+          {/* Content Section */}
+          <div className="lg:col-span-3 flex flex-col justify-center h-full">
+            {/* Top */}
+            <div>
+              {/* Title + Price */}
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-2">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-900 leading-tight">
+                  {productDetials?.product_name}
+                </h1>
+
+                <span className="bg-gray-100 text-gray-900 text-sm font-semibold px-3 py-1 rounded-full w-fit">
+                  ${selectedVariant?.price}
+                </span>
+              </div>
+
+              {/* Category description */}
+              <p className="text-xs text-gray-400 mb-3">
+                {productDetials?.category?.description}
+              </p>
+
+              {/* Description */}
+              <p className="text-gray-500 text-sm sm:text-base mb-5 leading-relaxed">
+                {productDetials?.description}
+              </p>
+
+              {/* Stock status */}
+              <p
+                className={`text-xs font-medium mb-4 ${
+                  selectedVariant?.stock <= selectedVariant?.low_stock_threshold
+                    ? "text-red-500"
+                    : "text-green-600"
+                }`}
               >
-                {tag}
-              </span>
-            ))}
+                {selectedVariant?.stock <= selectedVariant?.low_stock_threshold
+                  ? `⚠ Only ${selectedVariant?.stock} left`
+                  : "✔ In Stock"}
+              </p>
+
+              {/* Volume Selector */}
+              <div className="mb-6">
+                <p className="mb-2 text-xs text-gray-500 uppercase tracking-widest">
+                  Select Volume
+                </p>
+
+                <div className="flex flex-wrap gap-2 sm:gap-3">
+                  {productDetials?.variants.map((variant) => {
+                    const isActive =
+                      variant.variant_id === selectedVariant?.variant_id;
+
+                    return (
+                      <button
+                        key={variant.variant_id}
+                        onClick={() => setSelectedVariant(variant)}
+                        className={`px-5 py-2 text-sm rounded-lg transition ${
+                          isActive
+                            ? "bg-black text-white border-2 border-black"
+                            : "border border-gray-300 text-gray-700 hover:border-black"
+                        }`}
+                      >
+                        {variant.size}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom */}
+            <div>
+              {/* CTA */}
+              <button
+                disabled={selectedVariant?.stock === 0}
+                className="w-full py-3 rounded-xl bg-black text-white text-sm font-semibold tracking-wide hover:opacity-90 active:scale-95 transition mb-4 disabled:opacity-50"
+              >
+                {selectedVariant?.stock === 0 ? "Out of Stock" : "Add to Cart"}
+              </button>
+
+              {/* Secondary actions */}
+              <div className="flex gap-2 sm:gap-3 mb-5">
+                <button className="flex-1 py-2 border border-gray-300 rounded-lg text-sm hover:border-black transition">
+                  ♡ Wishlist
+                </button>
+
+                <button className="flex-1 py-2 border border-gray-300 rounded-lg text-sm hover:border-black transition">
+                  Share
+                </button>
+              </div>
+
+              {/* Tags */}
+              <div className="flex flex-wrap gap-2">
+                {["VEGAN", "CLINICAL GRADE", "CRUELTY FREE"].map((tag) => (
+                  <span
+                    key={tag}
+                    className="rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-600 font-medium hover:bg-gray-200 transition"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* RECOMMENDED SIMILAR PRODUCTS BY INGREDIENTS */}
-      <div className="mt-16 px-4 md:px-8 max-w-7xl mx-auto">
+      {/* <div className="mt-16 px-4 md:px-8 max-w-7xl mx-auto">
         <h2 className="text-xl font-medium text-base-content mb-6 border-b border-base-300 pb-2">
           Highly recommended with this product
         </h2>
@@ -89,10 +148,10 @@ export default function ProductDetials() {
              </div>
           ))}
         </div>
-      </div>
+      </div> */}
 
       {/* REVIEWS SECTION */}
-      <div className="mt-20 px-4 md:px-8 max-w-7xl mx-auto border-t border-base-300 pt-16">
+      {/* <div className="mt-20 px-4 md:px-8 max-w-7xl mx-auto border-t border-base-300 pt-16">
         <div className="mb-8 flex items-center justify-between">
           <h2 className="text-xl font-light text-base-content md:text-2xl">
             Customer Reviews
@@ -142,7 +201,56 @@ export default function ProductDetials() {
             Submit review
           </button>
         </div>
-      </div>
+      </div> */}
     </section>
+  );
+}
+
+function ProductDetialsSkeleton() {
+  return (
+    <div className="grid items-start gap-8 px-4 py-8 md:px-8 lg:grid-cols-7 lg:gap-12 max-w-7xl mx-auto animate-pulse">
+      {/* Image Skeleton */}
+      <div className="lg:col-span-4 bg-white rounded-3xl shadow-md p-6 flex items-center justify-center">
+        <div className="skeleton w-full max-w-md h-64 sm:h-80 md:h-96 rounded-xl"></div>
+      </div>
+
+      {/* Content Skeleton */}
+      <div className="lg:col-span-3 flex flex-col gap-5">
+        {/* Title + Price */}
+        <div className="flex justify-between items-center gap-3">
+          <div className="skeleton h-6 w-40 rounded"></div>
+          <div className="skeleton h-6 w-20 rounded-full"></div>
+        </div>
+
+        {/* Description */}
+        <div className="flex flex-col gap-2">
+          <div className="skeleton h-4 w-full rounded"></div>
+          <div className="skeleton h-4 w-5/6 rounded"></div>
+          <div className="skeleton h-4 w-2/3 rounded"></div>
+        </div>
+
+        {/* Volume Selector */}
+        <div className="flex gap-3 mt-2">
+          <div className="skeleton h-10 w-20 rounded-lg"></div>
+          <div className="skeleton h-10 w-20 rounded-lg"></div>
+        </div>
+
+        {/* Button */}
+        <div className="skeleton h-12 w-full rounded-xl mt-2"></div>
+
+        {/* Secondary Buttons */}
+        <div className="flex gap-3">
+          <div className="skeleton h-10 flex-1 rounded-lg"></div>
+          <div className="skeleton h-10 flex-1 rounded-lg"></div>
+        </div>
+
+        {/* Tags */}
+        <div className="flex gap-2 flex-wrap">
+          <div className="skeleton h-6 w-16 rounded-full"></div>
+          <div className="skeleton h-6 w-20 rounded-full"></div>
+          <div className="skeleton h-6 w-24 rounded-full"></div>
+        </div>
+      </div>
+    </div>
   );
 }

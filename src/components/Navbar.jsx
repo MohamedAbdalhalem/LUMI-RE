@@ -10,19 +10,20 @@ import { Link, NavLink } from "react-router";
 export default function Navbar() {
   function handleDarkMode() {
     if (localStorage.getItem("data-theme") === "dark") {
-      document.documentElement.setAttribute("data-theme", "light");
-      localStorage.setItem("data-theme", "light");
+      document.documentElement.classList.remove('dark');
+      localStorage.removeItem("data-theme");
     } else {
-      document.documentElement.setAttribute("data-theme", "dark");
+      document.documentElement.classList.add("dark");
       localStorage.setItem("data-theme", "dark");
     }
   }
 
   (function setDarkMode() {
-    document.documentElement.setAttribute(
-      "data-theme",
-      localStorage.getItem("data-theme"),
-    );
+    
+    if (localStorage.getItem("data-theme") === "dark") {
+      document.documentElement.classList.add('dark');
+    } 
+    
   })();
 
   return (

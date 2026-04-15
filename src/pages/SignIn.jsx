@@ -8,26 +8,33 @@ export default function SignIn() {
         {/* LEFT PART */}
         <div
           id="sign-in-leftPart"
-          className="relative hidden lg:col-span-4 lg:block h-full bg-neutral/90"
+          className="relative hidden lg:col-span-4 lg:flex items-center justify-center overflow-hidden bg-base-100"
         >
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-4xl px-6 text-center md:text-left w-full">
-            <p className="text-neutral-content/80 tracking-[0.3em] uppercase text-sm md:text-base mb-4">
+          {/* Soft Gradient Background */}
+          <div className="absolute inset-0  to-base-200"></div>
+
+          {/* Content */}
+          <div className="relative z-10 max-w-2xl px-8 text-center md:text-left">
+            <p className="text-neutral-500 tracking-[0.4em] uppercase text-xs md:text-sm mb-6">
               LUMIÈRE
             </p>
 
-            <h1 className="text-neutral-content font-light leading-tight text-4xl sm:text-5xl md:text-6xl mb-4">
-              Precision meets <span className="font-semibold">poetry.</span>
+            <h1 className="text-neutral-800 font-light leading-tight text-4xl sm:text-5xl md:text-6xl mb-6">
+              Precision meets{" "}
+              <span className="font-semibold text-neutral-900">poetry.</span>
             </h1>
 
-            <p className="text-neutral-content/70 font-light text-base md:text-lg leading-relaxed max-w-lg">
+            <p className="text-neutral-500 font-light text-base md:text-lg leading-relaxed max-w-md">
               Clinically proven results, curated through the lens of aesthetic
               excellence.
             </p>
           </div>
-          <div className="absolute bottom-5 left-5 flex items-center">
-            <div className="bg-neutral-content/50 w-12 h-[1px] mr-4"></div>
-            <p className="text-neutral-content/60 tracking-wider font-normal text-[10px]">
-              CLINICAL EXCELLENCE SERIES
+
+          {/* Bottom Label */}
+          <div className="absolute bottom-6 left-6 flex items-center gap-4">
+            <div className="bg-neutral-300 w-16 h-[1px]"></div>
+            <p className="text-neutral-400 tracking-[0.25em] font-light text-[11px] uppercase">
+              Clinical Excellence Series
             </p>
           </div>
         </div>
@@ -35,14 +42,24 @@ export default function SignIn() {
         {/* RIGHT PART */}
         <div className="py-16 md:py-24 px-6 md:px-16 lg:col-span-3 flex flex-col justify-center bg-base-100 h-full overflow-y-auto">
           <div className="max-w-md mx-auto w-full">
-            <h2 className="font-serif text-4xl text-base-content mb-3">Welcome Back</h2>
+            <h2 className="font-serif text-4xl text-base-content mb-3">
+              Welcome Back
+            </h2>
             <p className="text-base-content/70 text-base font-normal mb-8">
               Access your personalized clinical regimen.
             </p>
             <form action="">
               <div className="space-y-4">
-                <CustomInput id={"email"} label={"EMAIL ADDRESS"} type={"text"} />
-                <CustomInput id={"password"} label={"PASSWORD"} type={"password"} />
+                <CustomInput
+                  id={"email"}
+                  label={"EMAIL ADDRESS"}
+                  type={"text"}
+                />
+                <CustomInput
+                  id={"password"}
+                  label={"PASSWORD"}
+                  type={"password"}
+                />
               </div>
               <button className="btn btn-neutral w-full mt-8 mb-8 rounded-xl text-xs font-semibold uppercase tracking-widest text-neutral-content">
                 SIGN IN
@@ -61,7 +78,7 @@ export default function SignIn() {
                   Create Account
                 </Link>
               </p>
-              
+
               <div className="flex justify-center mt-12 flex-wrap gap-3">
                 <div className="py-2 px-4 text-base-content/60 text-[10px] font-semibold tracking-wider bg-base-200 rounded-xl uppercase">
                   Safe for all skins
