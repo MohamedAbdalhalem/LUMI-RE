@@ -8,10 +8,12 @@ import NavItems from "./NavItems";
 import { Link, NavLink, useNavigate } from "react-router";
 import { use } from "react";
 import { AuthContext } from "../store/AuthContext";
+import { CartContext } from "../store/CartContext";
 
 export default function Navbar() {
-  const { setToken,token } = use(AuthContext)
-  const navigate = useNavigate()
+  const { setToken, token } = use(AuthContext);
+  const { productsNumber } = use(CartContext);
+  const navigate = useNavigate();
   const tkn = localStorage.getItem("tkn");
   function handleDarkMode() {
     if (localStorage.getItem("data-theme") === "dark") {
@@ -31,8 +33,8 @@ export default function Navbar() {
 
   function handleSignOut() {
     localStorage.removeItem("tkn");
-    setToken(null)
-    navigate('/sign-in')
+    setToken(null);
+    navigate("/sign-in");
   }
   return (
     <div className="navbar bg-base-100 shadow-sm px-2 md:px-8">
@@ -62,7 +64,7 @@ export default function Navbar() {
               <>
                 <NavItems />
                 <li className="cursor-pointer">
-                  <p  onClick={handleSignOut} className="pb-1">
+                  <p onClick={handleSignOut} className="pb-1">
                     Sign-out
                   </p>
                 </li>
@@ -104,7 +106,7 @@ export default function Navbar() {
           )}
         </ul>
       </div>
-      <div className="navbar-end gap-3">
+      <div className="navbar-end gap-3 ">
         <FontAwesomeIcon
           onClick={handleDarkMode}
           className="cursor-pointer"
@@ -116,11 +118,16 @@ export default function Navbar() {
           </NavLink>
         )}
         {tkn && (
-          <NavLink to="/cart">
+          <NavLink to="/cart" className="relative inline-block">
             <FontAwesomeIcon
               className="cursor-pointer"
               icon={faCartArrowDown}
             />
+
+            {/* Badge */}
+            <span className="absolute -top-3 bg-white -right-1.5  text-[12px] px-0.5 py-0.5 rounded-full font-bold">
+              {productsNumber}
+            </span>
           </NavLink>
         )}
       </div>

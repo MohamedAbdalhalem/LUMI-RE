@@ -1,8 +1,18 @@
+import { use } from "react";
 import useProductDetials from "../hooks/useProductDetials";
+import { CartContext } from "../store/CartContext";
 
 export default function ProductDetials() {
+  
   const { productDetials, selectedVariant, setSelectedVariant, isLoading } =
     useProductDetials();
+  const {handleAddProductToCart} = use(CartContext)
+  function addProduct() {
+    handleAddProductToCart({
+      variant_id: selectedVariant.variant_id,
+      quantity : 1
+    })
+  }
   return (
     <section className="bg-base-100 min-h-screen py-12">
       {/* PRODUCT TOP SECTION */}
@@ -97,6 +107,7 @@ export default function ProductDetials() {
             <div>
               {/* CTA */}
               <button
+                onClick={selectedVariant?.stock && addProduct}
                 disabled={selectedVariant?.stock === 0}
                 className="w-full py-3 rounded-xl bg-black text-white text-sm font-semibold tracking-wide hover:opacity-90 active:scale-95 transition mb-4 disabled:opacity-50"
               >

@@ -15,7 +15,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import AuthRoute from "./components/AuthRoute";
 import UnAuthRoute from "./components/UnAuthRoute";
 import AuthContextProvider from "./store/AuthContext";
-
+import CartContextProvider from "./store/CartContext";
+import { Toaster } from "sonner";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -37,8 +38,22 @@ const router = createBrowserRouter([
           </AuthRoute>
         ),
       },
-      { path: "sign-in", element: <UnAuthRoute><SignIn /></UnAuthRoute> },
-      { path: "sign-up", element: <UnAuthRoute><SignUp /></UnAuthRoute> },
+      {
+        path: "sign-in",
+        element: (
+          <UnAuthRoute>
+            <SignIn />
+          </UnAuthRoute>
+        ),
+      },
+      {
+        path: "sign-up",
+        element: (
+          <UnAuthRoute>
+            <SignUp />
+          </UnAuthRoute>
+        ),
+      },
       {
         path: "products/:id",
         element: (
@@ -95,11 +110,15 @@ const router = createBrowserRouter([
 const queryClient = new QueryClient();
 export default function App() {
   return (
+    <>
     <AuthContextProvider>
-    <QueryClientProvider client={queryClient}>
-      {" "}
-      <RouterProvider router={router} />;{" "}
-      </QueryClientProvider>
+      <CartContextProvider>
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />;{" "}
+        </QueryClientProvider>
+      </CartContextProvider>
       </AuthContextProvider>
+      <Toaster/>
+      </>
   );
 }

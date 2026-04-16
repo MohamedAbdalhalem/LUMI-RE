@@ -4,6 +4,7 @@ import Product from "./Product";
 import { Link } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import ProductList from "./productList";
 
 export default function LaboratoryFavorites() {
   async function getSomeProducts() {
@@ -44,41 +45,9 @@ export default function LaboratoryFavorites() {
           </Link>
         </div>
       </header>
-      <article className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-        {isLoading && <ProductsLoaing />}
-        {someProduct?.map((product) => (
-          <Product key={product.product_id} id={product.product_id}
-            name={product.product_name}
-            image={product.images[0].image_url}
-            description={product.description}
-            price={product.variants[0].price} />
-        ))}
-      </article>
+        <ProductList allProduct={someProduct} isLoading={isLoading} />
     </section>
   );
 }
 
-function ProductsLoaing() {
-  return (
-    <>
-      <div className="flex w-full flex-col gap-4">
-        <div className="skeleton h-32 w-full"></div>
-        <div className="skeleton h-4 w-28"></div>
-        <div className="skeleton h-4 w-full"></div>
-        <div className="skeleton h-4 w-full"></div>
-      </div>
-      <div className="flex w-full flex-col gap-4">
-        <div className="skeleton h-32 w-full"></div>
-        <div className="skeleton h-4 w-28"></div>
-        <div className="skeleton h-4 w-full"></div>
-        <div className="skeleton h-4 w-full"></div>
-      </div>
-      <div className="flex w-full flex-col gap-4">
-        <div className="skeleton h-32 w-full"></div>
-        <div className="skeleton h-4 w-28"></div>
-        <div className="skeleton h-4 w-full"></div>
-        <div className="skeleton h-4 w-full"></div>
-      </div>
-    </>
-  );
-}
+

@@ -1,7 +1,25 @@
 import { Link } from "react-router";
-import { memo } from 'react'
-export default memo(function Product({ id, image, name, price, description }) {
-  console.log(id)
+import { memo } from "react";
+import { use } from "react";
+import { CartContext } from "../store/CartContext";
+export default memo(function Product({
+  id,
+  image,
+  name,
+  price,
+  description,
+  variantId,
+}) {
+  const { handleAddProductToCart } = use(CartContext);
+
+  function addProduct(event) {
+    event.preventDefault();
+    const productData = {
+      variant_id: variantId,
+      quantity: 1,
+    };
+    handleAddProductToCart(productData);
+  }
   return (
     <Link
       to={`/products/${id}`}
@@ -35,7 +53,10 @@ export default memo(function Product({ id, image, name, price, description }) {
         </p>
 
         {/* Button */}
-        <button className="mt-auto w-full py-2.5 rounded-lg bg-black text-white text-sm font-medium tracking-wide hover:opacity-90 active:scale-95 transition">
+        <button
+          onClick={(event) => addProduct(event)}
+          className="mt-auto w-full py-2.5 rounded-lg bg-black text-white text-sm font-medium tracking-wide hover:opacity-90 active:scale-95 transition"
+        >
           Add to Cart
         </button>
       </div>
