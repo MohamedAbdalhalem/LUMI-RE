@@ -1,18 +1,13 @@
 import { use } from "react";
 import { Link } from "react-router";
 import { CartContext } from "../store/CartContext";
+import CartProduct from "../components/CartProduct";
 
 // Mock data to scaffold the UI according to API "get customer cart" needs
 
 export default function Cart() {
-  const { cartProducts, totalPrice, handleRemoveProductFromCart,handleUpdateQuantity } =
-    use(CartContext);
-  function upQuantityAction() {
-    console.log('up');
-  }
-  function downQuantityAction(formData,cartItemId, quantity) {
-    handleUpdateQuantity(cartItemId, quantity - 1)
-  }
+  const { cartProducts, totalPrice } = use(CartContext);
+
   return (
     <section className="bg-base-100 min-h-screen py-12">
       <div className="mx-auto max-w-5xl px-4 md:px-8">
@@ -30,56 +25,16 @@ export default function Cart() {
 
         <div className="mt-10 divide-y divide-base-300    overflow-hidden ">
           {cartProducts.map((item) => (
-            <div
+            <CartProduct
               key={item.cart_item_id}
-              className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center hover:bg-base-200/50 bg-base-100 transition border border-base-300 mb-5  rounded-2xl"
-            >
-              <div className="h-28 w-full shrink-0 overflow-hidden rounded-xl bg-base-200 sm:h-24 sm:w-24 border border-base-300">
-                <img
-                  src={item.primary_image}
-                  alt={item.product_name}
-                  className="h-full w-full object-cover opacity-60"
-                />
-              </div>
-
-              <div className="min-w-0 flex-1">
-                <h2 className="font-serif text-lg font-semibold text-base-content">
-                  {item.product_name}
-                </h2>
-
-                <p className="mt-1 text-sm text-base-content/70">
-                  Variant: {item.variant_size}
-                </p>
-
-                <form className="mt-3 flex border border-base-300 rounded-lg w-fit items-center bg-base-100">
-                  <button formAction={()=>downQuantityAction(null,item.cart_item_id,item.quantity)} className="px-3 md:py-1 text-base-content/70 hover:text-primary transition font-bold">
-                    -
-                  </button>
-
-                  <span className="text-xs uppercase tracking-wide text-base-content px-2 font-medium">
-                    Qty {item.quantity}
-                  </span>
-
-                  <button formAction={upQuantityAction} className="px-3 md:py-1 text-base-content/70 hover:text-primary transition font-bold">
-                    +
-                  </button>
-                </form>
-              </div>
-
-              <div className="text-right sm:text-right flex justify-between sm:block mt-2 sm:mt-0">
-                <p className="font-medium tabular-nums text-base-content text-lg">
-                  ${item.item_total}
-                </p>
-
-                <button
-                  type="button"
-                  className="mt-2 text-sm text-secondary underline decoration-base-300 underline-offset-4 hover:text-error transition cursor-pointer"
-                  onClick={() => handleRemoveProductFromCart(item.cart_item_id)}
-                >
-                  Remove item
-                </button>
-              </div>
-            </div>
+              id={item.cart_item_id}
+              image={item.primary_image}
+              name={item.product_name}
+              size={item.variant_size}
+              quantity={item.quantity}
+              productTotalPrice={item.item_total}
+              stock={item.stock}
+            />
           ))}
         </div>
 

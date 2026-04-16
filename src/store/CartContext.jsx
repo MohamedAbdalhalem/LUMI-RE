@@ -88,7 +88,7 @@ export default function CartContextProvider({ children }) {
       });
   }
 
-  function handleUpdateQuantity(cartItemId, quantity) {
+  async function handleUpdateQuantity(cartItemId, quantity) {
     axios
       .put(
         `https://depi-s-gp-backend-production.up.railway.app/api/cart/items/${cartItemId}`,
@@ -104,12 +104,13 @@ export default function CartContextProvider({ children }) {
       .then((_) => {
         getCartProducts();
       })
-      .then((err) => {
+      .catch((err) => {
         console.log(err);
       });
   }
   // handleUpdateQuantity(44,30)
-  useEffect(() => {
+    useEffect(() => {
+      if(token)
     getCartProducts();
   }, [token]);
 
