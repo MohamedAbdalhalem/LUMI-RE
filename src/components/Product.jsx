@@ -23,7 +23,7 @@ export default memo(function Product({
   return (
     <Link
       to={`/products/${id}`}
-      className="block h-full bg-white rounded-2xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden group"
+      className="block h-full  rounded-2xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden group"
     >
       {/* Image */}
       <div className="overflow-hidden">
@@ -38,17 +38,17 @@ export default memo(function Product({
       <div className="p-4 flex flex-col justify-between h-[calc(100%-14rem)]">
         {/* Title + Price */}
         <div className="flex justify-between items-start mb-2">
-          <p className="text-lg font-semibold text-gray-800 line-clamp-1">
+          <p className="text-lg font-semibold  line-clamp-1">
             {name}
           </p>
 
-          <span className="bg-gray-100 text-gray-800 text-sm font-medium px-3 py-1 rounded-full">
+          <span className="  text-sm font-medium px-3 py-1 rounded-full">
             ${price}
           </span>
         </div>
 
         {/* Description */}
-        <p className="text-gray-500 text-sm mb-4 line-clamp-2 leading-relaxed">
+        <p className=" text-sm mb-4 line-clamp-2 leading-relaxed">
           {description}
         </p>
 

@@ -3,39 +3,20 @@ import {
   faCartArrowDown,
   faCircleUser,
   faMoon,
+  faSun,
 } from "@fortawesome/free-solid-svg-icons";
 import NavItems from "./NavItems";
 import { Link, NavLink, useNavigate } from "react-router";
-import { use } from "react";
+import { use, useEffect, useState } from "react";
 import { AuthContext } from "../store/AuthContext";
 import { CartContext } from "../store/CartContext";
+import useDarkMode from "../hooks/useDarkMode";
+import useSignOut from "../hooks/useSignOut";
 
 export default function Navbar() {
-  const { setToken, token } = use(AuthContext);
+  const { darkMode, handleDarkMode } = useDarkMode();
+  const { token , handleSignOut } = useSignOut();
   const { productsNumber } = use(CartContext);
-  const navigate = useNavigate();
-  const tkn = localStorage.getItem("tkn");
-  function handleDarkMode() {
-    if (localStorage.getItem("data-theme") === "dark") {
-      document.documentElement.setAttribute("data-theme", "");
-      localStorage.removeItem("data-theme");
-    } else {
-      document.documentElement.setAttribute("data-theme", "dark");
-      localStorage.setItem("data-theme", "dark");
-    }
-  }
-
-  (function setDarkMode() {
-    if (localStorage.getItem("data-theme") === "dark") {
-      document.documentElement.classList.add("dark");
-    }
-  })();
-
-  function handleSignOut() {
-    localStorage.removeItem("tkn");
-    setToken(null);
-    navigate("/sign-in");
-  }
   return (
     <div className="navbar bg-base-100 shadow-sm px-2 md:px-8">
       <div className="navbar-start">
@@ -72,7 +53,7 @@ export default function Navbar() {
             ) : (
               <>
                 <li>
-                  <NavLink to="/sign-in" className="pb-1">
+                  <NavLink to="/sign-in" className="pb-1 cursor-pointer">
                     Sign-in
                   </NavLink>
                 </li>
@@ -90,7 +71,7 @@ export default function Navbar() {
             <>
               <NavItems />
               <li>
-                <p onClick={handleSignOut} className="pb-1">
+                <p onClick={handleSignOut} className="pb-1 cursor-pointer">
                   Sign-out
                 </p>
               </li>
@@ -110,14 +91,14 @@ export default function Navbar() {
         <FontAwesomeIcon
           onClick={handleDarkMode}
           className="cursor-pointer"
-          icon={faMoon}
+          icon={darkMode === "dark" ? faSun : faMoon}
         />
-        {tkn && (
+        {token && (
           <NavLink to="/profile">
             <FontAwesomeIcon className="cursor-pointer" icon={faCircleUser} />
           </NavLink>
         )}
-        {tkn && (
+        {token && (
           <NavLink to="/cart" className="relative inline-block">
             <FontAwesomeIcon
               className="cursor-pointer"
