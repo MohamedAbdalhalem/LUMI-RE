@@ -1,7 +1,13 @@
 import React, { memo } from "react";
 import ReactStars from "react-stars";
 
-export default memo(function ReviewCard({name,customerId,rating,comment,createdAt}) {
+export default memo(function ReviewCard({
+  name,
+  customerId,
+  rating,
+  comment,
+  createdAt,
+}) {
   return (
     <div className="relative rounded-2xl border border-base-300 bg-base-200/60 p-6 flex flex-col gap-4 hover:shadow-lg transition">
       {/* OWN BADGE */}
@@ -16,8 +22,8 @@ export default memo(function ReviewCard({name,customerId,rating,comment,createdA
         </div>
 
         <div>
-          <p className="font-semibold text-base-content">{ name }</p>
-          <p className="text-xs text-base-content/60">{ createdAt }</p>
+          <p className="font-semibold text-base-content">{name}</p>
+          <p className="text-xs text-base-content/60">{createdAt}</p>
         </div>
       </div>
 
@@ -33,9 +39,7 @@ export default memo(function ReviewCard({name,customerId,rating,comment,createdA
       </div>
 
       {/* COMMENT */}
-      <p className="text-sm leading-relaxed text-base-content/80">
-        { comment }
-      </p>
+      <p className="text-sm leading-relaxed text-base-content/80">{comment}</p>
 
       {/* FOOTER */}
       <div className="flex justify-between items-center text-xs">
@@ -52,4 +56,4 @@ export default memo(function ReviewCard({name,customerId,rating,comment,createdA
       </div>
     </div>
   );
-})
+});

@@ -3,7 +3,7 @@ import HeroImage from "../assets/Hero-photo.png";
 export default function HeroSection() {
   return (
     <section className="grid lg:grid-cols-2 gap-10 items-center py-18 px-2 md:px-8 bg-base-100">
-      <div>
+      <div className="w-3/4">
         <p className="text-primary font-normal text-sm pb-3 uppercase tracking-widest ">
           DERMATOLOGICAL PRECISION
         </p>

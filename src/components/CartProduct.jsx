@@ -1,11 +1,8 @@
 import React, { memo } from "react";
 import { use } from "react";
 import { CartContext } from "../store/CartContext";
-import { useActionState } from "react";
-import { toast } from "sonner";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faX } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router";
+import useUpdateQuantity from "../hooks/useUpdateQuantity";
 
 export default memo(function CartProduct({
   id,
@@ -15,43 +12,24 @@ export default memo(function CartProduct({
   quantity,
   productTotalPrice,
   stock,
-  variantId
+  variantId,
 }) {
-  const { handleRemoveProductFromCart, handleUpdateQuantity } =
-    use(CartContext);
-  const productId = variantId % 2 === 0 ? variantId / 2 : (variantId +1) / 2
-  async function handleUpQuantity(prevState, formData) {
-    if (quantity + 1 > stock) {
-      toast("you can't buy more than that", {
-        position: "top-right",
-        icon: <FontAwesomeIcon icon={faX} className="text-red-600" />,
-        className: "w-[25vw]",
-      });
-    }
-    await handleUpdateQuantity(id, quantity + 1);
-  }
+  const { handleRemoveProductFromCart } = use(CartContext);
+  const {
+    downQuantityAction,
+    downQuantityPending,
+    upQuantityAction,
+    upQuantityPending,
+  } = useUpdateQuantity(id, quantity, stock);
+  const productId = variantId % 2 === 0 ? variantId / 2 : (variantId + 1) / 2;
 
-  async function handleDownQuantity(prevState, formData) {
-    if (quantity - 1 === 0) {
-      await handleRemoveProductFromCart(id);
-      return;
-    }
-    await handleUpdateQuantity(id, quantity - 1);
-  }
-
-  const [upQuantityState, upQuantityAction, upQuantityPending] =
-    useActionState(handleUpQuantity);
-
-  const [downQuantityState, downQuantityAction, downQuantityPending] =
-    useActionState(handleDownQuantity, null);
   return (
     <div className="flex flex-col gap-4 p-5 sm:flex-row sm:items-center hover:bg-base-200/50 bg-base-300 transition border border-base-300 mb-5  rounded-2xl">
-      <Link to={`/products/${productId}`} className="h-28 w-full shrink-0 overflow-hidden rounded-xl bg-base-200 sm:h-24 sm:w-24 border border-base-300">
-        <img
-          src={image}
-          alt={name}
-          className="h-full w-full object-cover"
-        />
+      <Link
+        to={`/products/${productId}`}
+        className="h-28 w-full shrink-0 overflow-hidden rounded-xl bg-base-200 sm:h-24 sm:w-24 border border-base-300"
+      >
+        <img src={image} alt={name} className="h-full w-full object-cover" />
       </Link>
 
       <div className="min-w-0 flex-1">

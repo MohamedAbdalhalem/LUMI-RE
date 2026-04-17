@@ -2,29 +2,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import Product from "./Product";
 import { Link } from "react-router";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import ProductList from "./productList";
+import useLaboratoryFavorites from "../hooks/useLaboratoryFavorites";
 
 export default function LaboratoryFavorites() {
-  async function getSomeProducts() {
-    return await axios.get(
-      "https://depi-s-gp-backend-production.up.railway.app/api/products",
-      {
-        params: {
-          limit: 3,
-          page: 1,
-        },
-      },
-    );
-  }
-
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["getSomeProducts"],
-    queryFn: getSomeProducts,
-  });
-
-  const someProduct = data?.data?.data;
+  const {isLoading,someProduct} = useLaboratoryFavorites()
   return (
     <section className=" backdrop-blur-md  py-12 px-2 md:px-8 ">
       <header className="flex justify-between items-end flex-wrap gap-5 gapy-4 mb-8">

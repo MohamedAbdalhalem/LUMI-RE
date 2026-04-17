@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import { memo } from "react";
 import { use } from "react";
 import { CartContext } from "../store/CartContext";
+import useAddProduct from "../hooks/useAddProduct";
 export default memo(function Product({
   id,
   image,
@@ -10,16 +11,7 @@ export default memo(function Product({
   description,
   variantId,
 }) {
-  const { handleAddProductToCart } = use(CartContext);
-
-  function addProduct(event) {
-    event.preventDefault();
-    const productData = {
-      variant_id: variantId,
-      quantity: 1,
-    };
-    handleAddProductToCart(productData);
-  }
+  const addProduct = useAddProduct(variantId)
   return (
     <Link
       to={`/products/${id}`}
