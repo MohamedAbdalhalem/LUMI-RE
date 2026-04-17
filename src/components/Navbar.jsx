@@ -17,10 +17,10 @@ export default function Navbar() {
   const tkn = localStorage.getItem("tkn");
   function handleDarkMode() {
     if (localStorage.getItem("data-theme") === "dark") {
-      document.documentElement.classList.remove("dark");
+      document.documentElement.setAttribute("data-theme", "");
       localStorage.removeItem("data-theme");
     } else {
-      document.documentElement.classList.add("dark");
+      document.documentElement.setAttribute("data-theme", "dark");
       localStorage.setItem("data-theme", "dark");
     }
   }
@@ -125,7 +125,7 @@ export default function Navbar() {
             />
 
             {/* Badge */}
-            <span className="absolute -top-3 bg-white -right-1.5  text-[12px] px-0.5 py-0.5 rounded-full font-bold">
+            <span className="absolute -top-3  -right-1.5  text-[12px] px-0.5 py-0.5 rounded-full font-bold">
               {productsNumber}
             </span>
           </NavLink>
