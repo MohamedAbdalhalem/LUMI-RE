@@ -62,7 +62,7 @@ export default function CartContextProvider({ children }) {
       });
   }
   async function handleRemoveProductFromCart(cartItemId) {
-    axios
+    await axios
       .delete(
         `https://depi-s-gp-backend-production.up.railway.app/api/cart/items/${cartItemId}`,
         {

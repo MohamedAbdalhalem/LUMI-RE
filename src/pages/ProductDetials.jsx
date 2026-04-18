@@ -3,18 +3,13 @@ import useProductDetials from "../hooks/useProductDetials";
 import { CartContext } from "../store/CartContext";
 import ReviewsSection from "../components/ReviewsSection";
 import { Link } from "react-router";
+import useAddProduct from "../hooks/useAddProduct";
 
 export default function ProductDetials() {
   
   const { productDetials, selectedVariant, setSelectedVariant, isLoading,isError } =
     useProductDetials();
-  const {handleAddProductToCart} = use(CartContext)
-  function addProduct() {
-    handleAddProductToCart({
-      variant_id: selectedVariant.variant_id,
-      quantity : 1
-    })
-  }
+  const addProduct = useAddProduct(selectedVariant.variant_id)
   return (
     <section className="bg-base-100 py-12">
       {/* PRODUCT TOP SECTION */}

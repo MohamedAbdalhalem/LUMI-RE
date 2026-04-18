@@ -4,24 +4,10 @@ import { Link } from "react-router";
 import { AuthContext } from "../store/AuthContext";
 import { useQuery } from "@tanstack/react-query";
 import OrderCard from "../components/OrderCard";
+import useGetOrdres from "../hooks/useGetOrdres";
 
 export default function Orders() {
-  const { token } = use(AuthContext);
-  async function handlegetOrders() {
-    return await axios.get(
-      "https://depi-s-gp-backend-production.up.railway.app/api/orders",
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    );
-  }
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["handlegetOrders", token],
-    queryFn: handlegetOrders,
-  });
-  const orders = data?.data.data;
+  const {orders,isLoading} = useGetOrdres()
   return (
     <section className="bg-base-100 min-h-screen py-12">
       <div className="mx-auto max-w-5xl px-4 md:px-8">
