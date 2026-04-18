@@ -6,12 +6,11 @@ import {
   faSun,
 } from "@fortawesome/free-solid-svg-icons";
 import NavItems from "./NavItems";
-import { Link, NavLink, useNavigate } from "react-router";
-import { use, useEffect, useState } from "react";
-import { AuthContext } from "../store/AuthContext";
+import { Link, NavLink } from "react-router";
 import { CartContext } from "../store/CartContext";
 import useDarkMode from "../hooks/useDarkMode";
 import useSignOut from "../hooks/useSignOut";
+import { use } from "react";
 
 export default function Navbar() {
   const { darkMode, handleDarkMode } = useDarkMode();

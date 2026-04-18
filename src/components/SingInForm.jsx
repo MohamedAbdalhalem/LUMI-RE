@@ -5,66 +5,10 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 import { AuthContext } from "../store/AuthContext";
 import { use } from "react";
+import useSignIn from "../hooks/useSignIn";
 
 export default function SingInForm() {
-  const {setToken} = use(AuthContext)
-  const [errorMessage, setErrorMessage] = useState(false)
-  const navigate = useNavigate()
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  async function singInAction(prevState,formData) {
-    const email = formData.get('email')
-    const password = formData.get('password')
-
-    const errors = {
-      emailError: null,
-      passwordError: null
-    }
-
-    if (!emailRegex.test(email.trim())) {
-      errors.emailError = 'invalid email'
-    }
-
-    if (password.trim().length < 8) {
-      errors.passwordError = 'invalid password'
-    }
-
-    if (errors.emailError || errors.passwordError) {
-      return {
-        errors, 
-        savedValues: {
-          email,
-          password
-        }
-      }
-    }
-    
-    return await axios.post('https://depi-s-gp-backend-production.up.railway.app/api/auth/login', {
-      email,
-      password
-    }).then(data => {
-      localStorage.setItem('tkn', data.data.token)
-      navigate('/')
-      setToken(data.data.token)
-      return { errors : null }
-    }).catch(err => {
-      setErrorMessage(true)
-      console.log(err.response.data)
-      setTimeout(() => {
-        setErrorMessage(false)
-      },3000)
-      return {
-        error : null,
-        savedValues: {
-          email,
-          password
-        }
-      } 
-    })
-
-    return { errors : null }
-  }
-
-  const [formState,formAction] = useActionState(singInAction,{errors : null})
+  const {errorMessage,formAction,formState} = useSignIn()
   return (
     <form action={formAction}>
       {errorMessage && (
