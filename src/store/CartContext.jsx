@@ -123,6 +123,7 @@ export default function CartContextProvider({ children }) {
         handleAddProductToCart,
         handleRemoveProductFromCart,
         handleUpdateQuantity,
+        setCartProducts
       }}
     >
       {children}
