@@ -14,8 +14,8 @@ export default function Addresses() {
     setShowAddNewAddresse((prevState) => !prevState);
   }
 
-  function getAllAddresses() {
-    return axios.get(
+  async function getAllAddresses() {
+    return await axios.get(
       `https://depi-s-gp-backend-production.up.railway.app/api/addresses`,
       {
         headers: {
@@ -25,12 +25,26 @@ export default function Addresses() {
     );
   }
 
+  
+  
   const { data, refetch, isLoading, isError } = useQuery({
     queryKey: [`getAllAddresses`, token],
     queryFn: getAllAddresses,
   });
 
   const addresses = data?.data?.data;
+  async function handleDeleteAddress(id){
+    await axios.delete(`https://depi-s-gp-backend-production.up.railway.app/api/addresses/${id}`,{
+      headers : {
+        Authorization: `Bearer ${token}`
+      }
+    }).then(data => {
+      refetch()
+    }).catch(err =>{
+      console.log(err)
+    })
+  }
+  
   return (
     <section className="bg-base-100 min-h-screen py-12">
       <div className="mx-auto max-w-2xl px-4 md:px-8">
@@ -49,11 +63,17 @@ export default function Addresses() {
           {/* DEFAULT ADDRESS CARD */}
           {isLoading && <AddressesSkeleton />}
           {isError && <AddressesError />}
+          {addresses?.length === 0  && (
+            <p className=" text-md text-center py-4">
+              You haven’t added any addresses yet.
+            </p>
+          )}
           {!isLoading &&
             !isError &&
             addresses.map((address) => (
               <AddressCard
                 key={address.address_id}
+                id={address.address_id}
                 city={address.city}
                 country={address.country}
                 isDefault={address.is_default}
@@ -61,6 +81,7 @@ export default function Addresses() {
                 state={address.state}
                 streetAddress={address.street_address}
                 zipCode={address.zip_code}
+                onDelete={handleDeleteAddress}
               />
             ))}
           {/* ADD ADDRESS PLACEHOLDER BUTTON */}
