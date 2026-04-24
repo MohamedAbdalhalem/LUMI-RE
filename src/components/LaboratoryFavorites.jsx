@@ -21,7 +21,7 @@ export default function LaboratoryFavorites() {
         <div>
           <Link
             to="/products"
-            className="text-xs  py-1 text-[#1B1C1B] font-blod"
+            className="text-xs py-1 font-blod"
           >
             VIEW ALL FORMULATIONS <FontAwesomeIcon icon={faArrowRight} />
           </Link>

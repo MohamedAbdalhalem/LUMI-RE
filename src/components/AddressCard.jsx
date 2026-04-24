@@ -1,6 +1,6 @@
-import { memo, useRef } from 'react';
-import ConfirmModal from './ConfirmModal';
-import EditModal from './EditModal';
+import { memo, useRef } from "react";
+import ConfirmModal from "./ConfirmModal";
+import EditModal from "./EditModal";
 export default memo(function AddressCard({
   id,
   isDefault,
@@ -10,23 +10,29 @@ export default memo(function AddressCard({
   state,
   zipCode,
   country,
-  onDelete
+  onDelete,
 }) {
-  const deleteRef = useRef()
-  const editRef = useRef()
-  function startDelete(){
-    deleteRef.current.showModal()
+  const deleteRef = useRef();
+  const editRef = useRef();
+  function startDelete() {
+    deleteRef.current.showModal();
   }
-  function startEdit(){
-    editRef.current.showModal()
+  function startEdit() {
+    editRef.current.showModal();
   }
-  async function finishDelete(){
-    await onDelete(id)
+  async function finishDelete() {
+    await onDelete(id);
   }
   return (
     <>
-    <ConfirmModal ref={deleteRef} onRemove={finishDelete} />
-    <EditModal ref={editRef}/>
+      <ConfirmModal ref={deleteRef} onRemove={finishDelete} />
+      <EditModal
+        ref={editRef}
+        defaultCity={city}
+        defaultState={state}
+        defaultStreetAddress={streetAddress}
+        defaultZipCode={zipCode}
+      />
       <div className="rounded-2xl border border-primary bg-base-200/50 p-6 shadow-sm">
         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
           {/* Left */}
@@ -36,16 +42,18 @@ export default memo(function AddressCard({
                 Default
               </span>
             )}
-      
-            <p className="font-medium text-base-content text-lg mb-1">{phone}</p>
-      
+
+            <p className="font-medium text-base-content text-lg mb-1">
+              {phone}
+            </p>
+
             <p className="text-sm leading-relaxed text-base-content/80">
               {streetAddress} <br />
               {city}, {state} {zipCode} <br />
               {country}
             </p>
           </div>
-      
+
           {/* Actions */}
           <div className="flex gap-4 sm:flex-col sm:gap-2 text-xs font-semibold uppercase tracking-wider">
             <button
@@ -55,7 +63,7 @@ export default memo(function AddressCard({
             >
               Edit
             </button>
-      
+
             <button
               type="button"
               onClick={startDelete}
@@ -68,4 +76,4 @@ export default memo(function AddressCard({
       </div>
     </>
   );
-})
+});

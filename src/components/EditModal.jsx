@@ -1,7 +1,7 @@
 import React from "react";
 import CustomInput from "./CustomInput";
 
-export default function EditModal({ ref }) {
+export default function EditModal({ ref ,defaultStreetAddress,defaultCity,defaultState,defaultZipCode  }) {
   return (
     <dialog id="my_modal_1" className="modal" ref={ref}>
   <div className="modal-box max-w-md">
@@ -17,25 +17,25 @@ export default function EditModal({ ref }) {
       <CustomInput
         label="Street Address"
         id="streetAddress"
-        defaultValue="456 New Apartment Road, Unit 12"
+        defaultValue={defaultStreetAddress}
       />
 
       <CustomInput
         label="City"
         id="city"
-        defaultValue="Los Angeles"
+        defaultValue={defaultCity}
       />
 
       <div className="grid gap-4 sm:grid-cols-2">
         <CustomInput
           label="State"
           id="state"
-          defaultValue="CA"
+          defaultValue={defaultState}
         />
         <CustomInput
           label="Zip Code"
           id="zipCode"
-          defaultValue="90001"
+          defaultValue={defaultZipCode}
         />
       </div>
 

@@ -1,7 +1,7 @@
 import CustomInput from "../components/CustomInput";
 import AddNewAddress from "../components/AddNewAddress";
 import AddressCard from "../components/AddressCard";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import axios from "axios";
 import { use } from "react";
 import { AuthContext } from "./../store/AuthContext";
@@ -32,7 +32,7 @@ export default function Addresses() {
   });
 
   const addresses = data?.data?.data;
-  async function handleDeleteAddress(id) {
+  const handleDeleteAddress = useCallback( async function (id) {
     await axios
       .delete(
         `https://depi-s-gp-backend-production.up.railway.app/api/addresses/${id}`,
@@ -48,7 +48,7 @@ export default function Addresses() {
       .catch((err) => {
         console.log(err);
       });
-  }
+  },[token])
   async function HandleUpdateAddress(newAddress) {
     await axios
       .post(
