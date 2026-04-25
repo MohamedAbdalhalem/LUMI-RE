@@ -6,67 +6,16 @@ import axios from "axios";
 import { use } from "react";
 import { AuthContext } from "./../store/AuthContext";
 import { useQuery } from "@tanstack/react-query";
+import useAddresses from "../hooks/useAddresses";
 
 export default function Addresses() {
-  const { token } = use(AuthContext);
+  const {addresses,handleAddAddress,handleDeleteAddress,handleUpdateAddress,isError,isLoading} = useAddresses()
   const [showAddNewAddresse, setShowAddNewAddresse] = useState(false);
   function handleShowForm() {
     setShowAddNewAddresse((prevState) => !prevState);
   }
 
-  async function getAllAddresses() {
-    return await axios.get(
-      `https://depi-s-gp-backend-production.up.railway.app/api/addresses`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      },
-    );
-  }
-
-  const { data, refetch, isLoading, isError } = useQuery({
-    queryKey: [`getAllAddresses`, token],
-    queryFn: getAllAddresses,
-    
-  });
-
-  const addresses = data?.data?.data;
-  const handleDeleteAddress = useCallback( async function (id) {
-    await axios
-      .delete(
-        `https://depi-s-gp-backend-production.up.railway.app/api/addresses/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      )
-      .then((data) => {
-        refetch();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  },[token])
-  async function HandleUpdateAddress(newAddress) {
-    await axios
-      .post(
-        "https://depi-s-gp-backend-production.up.railway.app/api/addresses",
-        newAddress,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      )
-      .then(() => {
-        refetch();
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
-  }
+ 
   return (
     <section className="bg-base-100 min-h-screen py-12">
       <div className="mx-auto max-w-2xl px-4 md:px-8">
@@ -104,6 +53,7 @@ export default function Addresses() {
                 streetAddress={address.street_address}
                 zipCode={address.zip_code}
                 onDelete={handleDeleteAddress}
+                onUpdate={handleUpdateAddress}
               />
             ))}
           {/* ADD ADDRESS PLACEHOLDER BUTTON */}
@@ -121,7 +71,7 @@ export default function Addresses() {
 
         {/* ADD ADDRESS FORM SECTION */}
         {showAddNewAddresse && addresses.length < 5 && (
-          <AddNewAddress onAddNewAddress={HandleUpdateAddress} />
+          <AddNewAddress onAddNewAddress={handleAddAddress} />
         )}
       </div>
     </section>

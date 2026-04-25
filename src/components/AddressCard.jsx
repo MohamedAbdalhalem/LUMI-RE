@@ -11,6 +11,7 @@ export default memo(function AddressCard({
   zipCode,
   country,
   onDelete,
+  onUpdate
 }) {
   const deleteRef = useRef();
   const editRef = useRef();
@@ -23,6 +24,9 @@ export default memo(function AddressCard({
   async function finishDelete() {
     await onDelete(id);
   }
+  async function finishEdit(updatedAddress) {
+    await onUpdate(updatedAddress,id);
+  }
   return (
     <>
       <ConfirmModal ref={deleteRef} onRemove={finishDelete} />
@@ -32,6 +36,7 @@ export default memo(function AddressCard({
         defaultState={state}
         defaultStreetAddress={streetAddress}
         defaultZipCode={zipCode}
+        onEdit={finishEdit}
       />
       <div className="rounded-2xl border border-primary bg-base-200/50 p-6 shadow-sm">
         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
