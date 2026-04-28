@@ -30,7 +30,7 @@ export default function ConfirmModal({ref,onRemove}) {
           <div className="modal-action flex justify-end gap-3">
             {/* Cancel */}
             <form method="dialog">
-              <button className="btn btn-ghost">Cancel</button>
+              <button className="btn btn-ghost me-2">Cancel</button>
               <button
               formAction={removeAction}
               disabled={removePending}

@@ -1,6 +1,9 @@
-import  { memo, useContext } from "react";
+import { memo, useContext, useRef } from "react";
 import ReactStars from "react-stars";
-import { AuthContext } from './../store/AuthContext';
+import { AuthContext } from "./../store/AuthContext";
+import ConfirmModal from './ConfirmModal';
+import axios from "axios";
+import apiUrl from "../lib/apiUrl";
 
 export default memo(function ReviewCard({
   name,
@@ -8,12 +11,26 @@ export default memo(function ReviewCard({
   rating,
   comment,
   createdAt,
+  reviewId,
+  refetch
 }) {
-  const {savedCustomerId} = useContext(AuthContext)
-  const isOwner = customerId === savedCustomerId
+  const { savedCustomerId,token } = useContext(AuthContext);
+  const isOwner = customerId === savedCustomerId;
+  const ref = useRef()
+  function startDeleteReview(){
+    ref.current.showModal()
+  }
+  async function handleDeleteReview() {
+    await axios.delete(`${apiUrl}reviews/${reviewId}`,{
+      headers : {
+        Authorization: `Bearer ${token}`,
+      }
+    }).then(()=>refetch())
+  }
   return (
+    <>
+    <ConfirmModal ref={ref} onRemove={handleDeleteReview} />
     <div className="relative rounded-2xl border border-base-300 bg-base-200/60 p-6 flex flex-col gap-4 hover:shadow-lg transition">
-
       {/* OWN BADGE */}
       {isOwner && (
         <span className="absolute top-3 right-3 text-[10px] bg-primary text-white px-2 py-1 rounded-full">
@@ -45,9 +62,7 @@ export default memo(function ReviewCard({
       </div>
 
       {/* COMMENT */}
-      <p className="text-sm leading-relaxed text-base-content/80">
-        {comment}
-      </p>
+      <p className="text-sm leading-relaxed text-base-content/80">{comment}</p>
 
       {/* FOOTER */}
       <div className="flex justify-between items-center mt-2">
@@ -65,13 +80,13 @@ export default memo(function ReviewCard({
         {/* DELETE BUTTON */}
         {isOwner && (
           <button
-            className="text-xs px-3 py-1.5 rounded-lg bg-red-500 text-white hover:bg-red-600 transition"
-          >
+          onClick={startDeleteReview} 
+          className="text-xs px-3 py-1.5 rounded-lg bg-red-500 text-white  hover:bg-red-600 transition">
             Delete
           </button>
         )}
       </div>
     </div>
-  
+    </>
   );
 });

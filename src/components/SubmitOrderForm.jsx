@@ -7,8 +7,8 @@ import { useActionState } from "react";
 import { CartContext } from "../store/CartContext";
 import useMakeOrder from "../hooks/useMakeOrder";
 
-export default function SubmitOrderForm({cartProductLength,totalPrice}) {
-  const {formAction,pending} = useMakeOrder()
+export default function SubmitOrderForm({ cartProductLength, totalPrice }) {
+  const { formAction, pending } = useMakeOrder();
   return (
     <form className="mt-10 flex flex-col gap-6 rounded-2xl border border-base-300 bg-base-200/50 p-6 md:flex-row md:items-start md:justify-between shadow-sm">
       <div>
