@@ -55,9 +55,9 @@ export default function OrderDetials() {
                           <td className="p-4 flex items-center gap-4">
                             <div className="w-12 h-12 rounded bg-base-300 border shrink-0" />
                             <div>
-                              <p className="font-medium">
+                              <Link to={`/products/${item.variant?.product?.product_id}`} className="font-medium">
                                 {item.variant?.product?.product_name}
-                              </p>
+                              </Link>
                               <p className="text-xs opacity-60">
                                 Qty: {item.quantity}
                               </p>

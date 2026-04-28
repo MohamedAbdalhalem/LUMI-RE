@@ -1,4 +1,3 @@
-import React from "react";
 import { use } from "react";
 import { AuthContext } from "../store/AuthContext";
 import { useParams } from "react-router";
@@ -25,7 +24,7 @@ export default function useOrderDetials() {
     queryFn: getOrderDetials,
   });
   const orderDetails = data?.data?.data;
-
+  console.log(orderDetails)
   return {
     orderDetails,
     isLoading,

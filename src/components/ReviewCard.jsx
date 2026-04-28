@@ -1,5 +1,6 @@
-import React, { memo } from "react";
+import  { memo, useContext } from "react";
 import ReactStars from "react-stars";
+import { AuthContext } from './../store/AuthContext';
 
 export default memo(function ReviewCard({
   name,
@@ -8,12 +9,17 @@ export default memo(function ReviewCard({
   comment,
   createdAt,
 }) {
+  const {savedCustomerId} = useContext(AuthContext)
+  const isOwner = customerId === savedCustomerId
   return (
     <div className="relative rounded-2xl border border-base-300 bg-base-200/60 p-6 flex flex-col gap-4 hover:shadow-lg transition">
+
       {/* OWN BADGE */}
-      {/* <span className="absolute top-3 right-3 text-[10px] bg-primary text-white px-2 py-1 rounded-full">
-        own
-      </span> */}
+      {isOwner && (
+        <span className="absolute top-3 right-3 text-[10px] bg-primary text-white px-2 py-1 rounded-full">
+          own
+        </span>
+      )}
 
       {/* USER */}
       <div className="flex items-center gap-3">
@@ -34,16 +40,18 @@ export default memo(function ReviewCard({
           size={24}
           color2={"#ffd700"}
           value={rating}
-          edit={!true}
+          edit={false}
         />
       </div>
 
       {/* COMMENT */}
-      <p className="text-sm leading-relaxed text-base-content/80">{comment}</p>
+      <p className="text-sm leading-relaxed text-base-content/80">
+        {comment}
+      </p>
 
       {/* FOOTER */}
-      <div className="flex justify-between items-center text-xs">
-        <span className="text-success flex items-center gap-1 font-medium">
+      <div className="flex justify-between items-center mt-2">
+        <span className="text-success flex items-center gap-1 text-xs font-medium">
           <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
             <path
               fillRule="evenodd"
@@ -53,7 +61,17 @@ export default memo(function ReviewCard({
           </svg>
           Verified Purchase
         </span>
+
+        {/* DELETE BUTTON */}
+        {isOwner && (
+          <button
+            className="text-xs px-3 py-1.5 rounded-lg bg-red-500 text-white hover:bg-red-600 transition"
+          >
+            Delete
+          </button>
+        )}
       </div>
     </div>
+  
   );
 });
