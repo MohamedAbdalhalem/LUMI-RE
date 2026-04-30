@@ -6,6 +6,8 @@ export default function Question({
   questionType,
   options,
   mappingKey,
+  error,
+  defaultValue
 }) {
   if (questionType === "single_choice") {
     return (
@@ -17,6 +19,7 @@ export default function Question({
         <div className="space-y-2">
           {options.map((option) => (
             <label
+            key={option}
               htmlFor={option}
               className="flex items-center gap-3 cursor-pointer"
             >
@@ -26,11 +29,16 @@ export default function Question({
                 name={mappingKey}
                 value={option}
                 className="radio radio-info"
+                defaultChecked={option === defaultValue}
               />
               <span>{option}</span>
             </label>
           ))}
         </div>
+        
+        {error && <p className="mt-2 text-base text-red-500 font-medium">
+          This field is required
+        </p>}
       </div>
     );
   }
@@ -48,6 +56,7 @@ export default function Question({
         <div className="space-y-2">
           {options.map((option) => (
             <label
+            key={option}
               htmlFor={option}
               className="flex items-center gap-3 cursor-pointer"
             >
@@ -57,36 +66,43 @@ export default function Question({
                 name={mappingKey}
                 value={option}
                 className="checkbox checkbox-info"
+                defaultChecked={defaultValue && defaultValue.includes(option) ? true : false}
+                
               />
               <span>{option}</span>
             </label>
           ))}
-
         </div>
+        {error && <p className="mt-2 text-base text-red-500 font-medium">
+          This field is required
+        </p>}
       </div>
     );
   }
 
-  if(questionType === 'scale'){
-    return(
+  if (questionType === "scale") {
+    return (
       <div>
-            <p className="font-medium mb-3">{questionId}. {questionTitle}</p>
+        <p className="font-medium mb-3">
+          {questionId}. {questionTitle}
+        </p>
 
-            <input
-              type="range"
-              min={0}
-              max={options.length - 1}
-              step={1}
-              defaultValue={0}
-              className="range range-info w-full"
-              name={mappingKey}
-            />
+        <input
+          type="range"
+          min={0}
+          max={options.length - 1}
+          step={1}
+          className="range range-info w-full"
+          name={mappingKey}
+          defaultValue={defaultValue ? defaultValue : 0}
+        />
 
-            <div className="flex justify-between text-xs mt-2 text-base-content/60">
-              {options.map(option => <span>{option}</span>)}
-            </div>
-          </div>
-    )
+        <div className="flex justify-between text-xs mt-2 text-base-content/60">
+          {options.map((option) => (
+            <span key={option}>{option}</span>
+          ))}
+        </div>
+      </div>
+    );
   }
 }
-
