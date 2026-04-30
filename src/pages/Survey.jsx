@@ -10,6 +10,7 @@ import { useNavigate } from "react-router";
 export default function Survey() {
   const { survey, isLoading } = useGetSurvey();
   const {token} = use(AuthContext)
+  
   const navigate = useNavigate()
   async function submitSurveyAction(prevState, formData) {
     const skinType = formData.get("skin_type");
