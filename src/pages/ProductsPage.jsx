@@ -1,6 +1,8 @@
 import ProductList from "../components/productList";
 import ReactPaginate from "react-paginate";
 import useGetAllProducts from "../hooks/useGetAllProducts";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 export default function ProductsPage() {
   const {
     allProduct,
@@ -10,6 +12,8 @@ export default function ProductsPage() {
     pages,
     handleUpdateCategory,
     category,
+    handleSearch,
+    search
   } = useGetAllProducts();
 
   return (
@@ -38,56 +42,55 @@ export default function ProductsPage() {
               <ul className="space-y-2 text-sm text-base-content/70">
                 <li
                   onClick={() => handleUpdateCategory("")}
-                  className={`flex justify-between cursor-pointer ${category === '' && 'text-primary'}` }
+                  className={`flex justify-between cursor-pointer ${category === "" && "text-primary"}`}
                 >
-                  <span className="font-medium">All</span>{" "}
-                  <span>(40)</span>
+                  <span className="font-medium">All</span> <span>(40)</span>
                 </li>
                 <li
                   onClick={() => handleUpdateCategory("Toners")}
-                  className={`flex justify-between cursor-pointer ${category === 'Toners' && 'text-primary'}`}
+                  className={`flex justify-between cursor-pointer ${category === "Toners" && "text-primary"}`}
                 >
                   <span>Toners</span> <span>(5)</span>
                 </li>
                 <li
                   onClick={() => handleUpdateCategory("Exfoliators")}
-                  className={`flex justify-between cursor-pointer ${category === 'Exfoliators' && 'text-primary'}`}
+                  className={`flex justify-between cursor-pointer ${category === "Exfoliators" && "text-primary"}`}
                 >
                   <span>Exfoliators</span> <span>(5)</span>
                 </li>
                 <li
                   onClick={() => handleUpdateCategory("Eye Care")}
-                  className={`flex justify-between cursor-pointer ${category === 'Eye Care' && 'text-primary'}`}
+                  className={`flex justify-between cursor-pointer ${category === "Eye Care" && "text-primary"}`}
                 >
                   <span>Eye Care</span> <span>(5)</span>
                 </li>
                 <li
                   onClick={() => handleUpdateCategory("Sun Protection")}
-                  className={`flex justify-between cursor-pointer ${category === 'Sun Protection' && 'text-primary'}`}
+                  className={`flex justify-between cursor-pointer ${category === "Sun Protection" && "text-primary"}`}
                 >
                   <span>Sun Protection</span> <span>(5)</span>
                 </li>
                 <li
                   onClick={() => handleUpdateCategory("Masks")}
-                  className={`flex justify-between cursor-pointer ${category === 'Masks' && 'text-primary'}`}
+                  className={`flex justify-between cursor-pointer ${category === "Masks" && "text-primary"}`}
                 >
                   <span>Masks</span> <span>(5)</span>
                 </li>
                 <li
                   onClick={() => handleUpdateCategory("Cleansers")}
-                  className={`flex justify-between cursor-pointer ${category === 'Cleansers' && 'text-primary'}`}
+                  className={`flex justify-between cursor-pointer ${category === "Cleansers" && "text-primary"}`}
                 >
                   <span>Cleansers</span> <span>(5)</span>
                 </li>
                 <li
                   onClick={() => handleUpdateCategory("Moisturizers")}
-                  className={`flex justify-between cursor-pointer ${category === 'Moisturizers' && 'text-primary'}`}
+                  className={`flex justify-between cursor-pointer ${category === "Moisturizers" && "text-primary"}`}
                 >
                   <span>Moisturizers</span> <span>(5)</span>
                 </li>
                 <li
                   onClick={() => handleUpdateCategory("Serums")}
-                  className={`flex justify-between cursor-pointer ${category === 'Serums' && 'text-primary'}`}
+                  className={`flex justify-between cursor-pointer ${category === "Serums" && "text-primary"}`}
                 >
                   <span>Serums</span> <span>(5)</span>
                 </li>
@@ -117,7 +120,22 @@ export default function ProductsPage() {
 
           {/* PRODUCT GRID */}
           <div className="flex-1">
-            <div className="flex justify-between items-center mb-6 border-b border-base-300 pb-4">
+            <div className="relative w-full">
+              <input
+                onChange={(event) => handleSearch(event.target.value)}
+                type="search"
+                placeholder="Search..."
+                className="w-full py-3 pl-10 pr-4 text-base border border-gray-200 rounded-lg outline-none transition-all duration-200 placeholder:text-gray-400 "
+                defaultValue={search}
+              />
+
+              {/* Icon */}
+              <FontAwesomeIcon
+                icon={faSearch}
+                className="absolute left-2 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400"
+              />
+            </div>
+            <div className="flex justify-between items-center mb-6 border-b border-base-300 pb-4 mt-4">
               <p className="text-sm text-base-content/60">
                 Showing 1-6 of 24 products
               </p>
@@ -127,7 +145,7 @@ export default function ProductsPage() {
                 <option>Sort by: Price (Low to High)</option>
               </select>
             </div>
-
+            
             <ProductList allProduct={allProduct} isLoading={isLoading} />
             <ReactPaginate
               breakLabel="..."
