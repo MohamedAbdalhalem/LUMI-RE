@@ -12,7 +12,7 @@ export default function useGetAllProducts() {
             params: {
               limit: 9,
               page: pageNumber,
-              category,
+              category : category,
             },
           },
         );
@@ -32,6 +32,7 @@ export default function useGetAllProducts() {
       
       function handleUpdateCategory(category){
         setCategory(prevState => category)
+        setPageNumber(prevState => 1)
         sessionStorage.setItem('category',category)
       }
 
