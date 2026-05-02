@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
-// eslint-disable-next-line react-refresh/only-export-components
+import Cookies from "js-cookie";
 export const AuthContext = createContext({
   token: null,
   setToken: () => {},
@@ -15,8 +15,8 @@ export default function AuthContextProvider({ children }) {
   const savedCustomerId =decodedToken?.customerId
     
   useEffect(() => {
-    if (localStorage.getItem("tkn")) {
-      setToken(localStorage.getItem("tkn"));
+    if (Cookies.get('tkn')) {
+      setToken(Cookies.get('tkn'));
     }
   }, []);
   return (

@@ -5,7 +5,7 @@ import { use } from "react";
 import { useNavigate } from "react-router";
 import { AuthContext } from "../store/AuthContext";
 import { validatEmail, validatPassword } from "../lib/validation";
-
+import Cookies from "js-cookie";
 export default function useSignIn() {
   const { setToken } = use(AuthContext);
   const [errorMessage, setErrorMessage] = useState(false);
@@ -48,6 +48,7 @@ export default function useSignIn() {
       )
       .then((data) => {
         localStorage.setItem("tkn", data.data.token);
+        Cookies.set('tkn',data.data.token,{expires : 7})
         navigate("/");
         setToken(data.data.token);
         return { errors: null };
