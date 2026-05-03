@@ -1,8 +1,8 @@
-import ProductList from "../components/ProductList";
 import ReactPaginate from "react-paginate";
 import useGetAllProducts from "../hooks/useGetAllProducts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfinity, faSearch } from "@fortawesome/free-solid-svg-icons";
+import ProductList from "../components/productList";
 export default function ProductsPage() {
   const {
     allProduct,
