@@ -2,8 +2,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import Product from "./Product";
 import { Link } from "react-router";
-import ProductList from "./ProductList";
 import useLaboratoryFavorites from "../hooks/useLaboratoryFavorites";
+import ProductList from "./productList";
 
 export default function LaboratoryFavorites() {
   const {isLoading,someProduct} = useLaboratoryFavorites()
