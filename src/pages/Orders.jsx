@@ -7,7 +7,7 @@ import OrderCard from "../components/OrderCard";
 import useGetOrdres from "../hooks/useGetOrdres";
 
 export default function Orders() {
-  const {orders,isLoading} = useGetOrdres()
+  const { orders, isLoading } = useGetOrdres();
   return (
     <section className="bg-base-100 min-h-screen py-12">
       <div className="mx-auto max-w-5xl px-4 md:px-8">
@@ -23,6 +23,11 @@ export default function Orders() {
           </p>
         </header>
         {isLoading && <LoadingScreen />}
+        {orders?.length === 0 && (
+          <p className="text-gray-500 text-base text-center mt-4">
+            You haven’t placed any orders yet.
+          </p>
+        )}
         {orders?.map((order) => (
           <OrderCard
             key={order.order_id}
@@ -44,11 +49,12 @@ export default function Orders() {
 }
 
 function LoadingScreen() {
-  return( <div className="flex w-full flex-col gap-4">
-    <div className="skeleton h-32 w-full"></div>
-    <div className="skeleton h-4 w-28"></div>
-    <div className="skeleton h-4 w-full"></div>
-    <div className="skeleton h-4 w-full"></div>
-  </div> 
-  )
+  return (
+    <div className="flex w-full flex-col gap-4">
+      <div className="skeleton h-32 w-full"></div>
+      <div className="skeleton h-4 w-28"></div>
+      <div className="skeleton h-4 w-full"></div>
+      <div className="skeleton h-4 w-full"></div>
+    </div>
+  );
 }
