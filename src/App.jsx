@@ -19,6 +19,7 @@ import CartContextProvider from "./store/CartContext";
 import { Toaster } from "sonner";
 import TrackingOrder from "./pages/TrackingOrder";
 import Survey from "./pages/Survey";
+import UpdateSurvey from "./pages/UpdateSurvey";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -93,6 +94,14 @@ const router = createBrowserRouter([
         element : (
           <AuthRoute>
             <Survey/>
+          </AuthRoute>
+        )
+      },
+      {
+        path: 'profile/updateSurvey',
+        element : (
+          <AuthRoute>
+            <UpdateSurvey/>
           </AuthRoute>
         )
       },
