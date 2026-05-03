@@ -110,7 +110,6 @@ export default function Survey() {
       }
     }).then(data => {
       navigate('/profile')
-      console.log(data)
     }).catch(err => {
       console.log(err.response)
     });

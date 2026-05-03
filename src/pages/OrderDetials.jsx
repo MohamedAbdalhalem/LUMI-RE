@@ -23,7 +23,7 @@ export default function OrderDetials() {
                   Order #{orderDetails?.order_id}
                 </h1>
                 <p className="mt-2 text-sm text-base-content/70">
-                  Placed on {orderDetails?.created_at}
+                  Placed on {new Date(orderDetails?.created_at).toLocaleDateString()}
                 </p>
               </div>
               <div className="text-left md:text-right">

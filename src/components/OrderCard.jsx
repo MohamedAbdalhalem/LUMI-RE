@@ -35,7 +35,7 @@ export default function OrderCard({
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4 text-sm">
         <div>
           <p className="text-base-content/50 text-xs">Date</p>
-          <p>{createdAt}</p>
+          <p>{new Date(createdAt).toLocaleDateString()}</p>
         </div>
 
         <div>

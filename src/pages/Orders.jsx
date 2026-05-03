@@ -30,17 +30,17 @@ export default function Orders() {
         )}
         {orders?.map((order) => (
           <OrderCard
-            key={order.order_id}
-            orderId={order.order_id}
-            orderRef={order.order_ref}
-            status={order.status}
-            createdAt={order.created_at}
-            shipping={order.shipping}
-            tax={order.tax}
-            total={order.total}
-            amount={order.payment.amount}
-            paymentStatus={order.payment.status}
-            subtotal={order.subtotal}
+            key={order?.order_id}
+            orderId={order?.order_id}
+            orderRef={order?.order_ref}
+            status={order?.status}
+            createdAt={order?.created_at}
+            shipping={order?.shipping}
+            tax={order?.tax}
+            total={order?.total}
+            amount={order?.payment.amount}
+            paymentStatus={order?.payment.status}
+            subtotal={order?.subtotal}
           />
         ))}
       </div>

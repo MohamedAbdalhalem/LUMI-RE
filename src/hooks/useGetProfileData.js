@@ -6,7 +6,7 @@ import axios from "axios";
 export default function useGetProfileData() {
   const {token} = use(AuthContext)
   async function handleGetProfile() {
-    return await axios.get(`${apiUrl}profile`, {
+    return await axios.get(`${apiUrl}profile/me`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

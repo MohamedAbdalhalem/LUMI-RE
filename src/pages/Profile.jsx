@@ -3,14 +3,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileImage } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router";
 import useGetProfileData from "../hooks/useGetProfileData";
+import RecommendationsProducts from "../components/RecommendationsProducts";
 
 export default function Profile() {
   const { isError, isLoading, profileData } = useGetProfileData();
 
   if (isLoading) {
     return (
-      <section className="bg-base-100 min-h-screen py-12">
-        <div className="animate-pulse mx-auto max-w-2xl px-4 md:px-8">
+      <section className="bg-base-100  py-12">
+        <div className="animate-pulse mx-auto max-w-3xl px-4 md:px-8 ">
           <header className="mb-10 border-b border-base-300 pb-6">
             <h1 className="font-serif text-3xl font-light text-base-content md:text-4xl">
               My Profile
@@ -50,8 +51,8 @@ export default function Profile() {
   return (
     <>
       {!isLoading && !isError && (
-        <section className="bg-base-100 min-h-screen py-12">
-          <div className="mx-auto max-w-2xl px-4 md:px-8">
+        <section className="bg-base-100 py-12">
+          <div className="mx-auto max-w-3xl px-4 md:px-8">
             <header className="mb-10 border-b border-base-300 pb-6">
               <h1 className="font-serif text-3xl font-light text-base-content md:text-4xl">
                 My Profile
@@ -98,6 +99,7 @@ export default function Profile() {
               </div>
             </div>
           </div>
+          <RecommendationsProducts/>
         </section>
       )}
     </>

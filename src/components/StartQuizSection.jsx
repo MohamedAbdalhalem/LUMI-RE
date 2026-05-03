@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 export default function StartQuizSection() {
   return (
     <section className="py-12 px-2 md:px-8">
@@ -17,9 +19,11 @@ export default function StartQuizSection() {
             find your personalized clinical regimen tailored to your unique
             microbiome.
           </p>
-          <button className="bg-[#FBF9F7] py-4 px-10 rounded-sm text-sm font-bold text-[#272727]">
-            START SKIN QUIZ
-          </button>
+          <Link to='/profile/survey'>
+            <button className="bg-[#FBF9F7] cursor-pointer py-4 px-10 rounded-sm text-sm font-bold text-[#272727]">
+              START SKIN QUIZ
+            </button>
+          </Link>
         </div>
       </div>
     </section>

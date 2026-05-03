@@ -1,4 +1,4 @@
-import ProductList from "../components/productList";
+import ProductList from "../components/ProductList";
 import ReactPaginate from "react-paginate";
 import useGetAllProducts from "../hooks/useGetAllProducts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
