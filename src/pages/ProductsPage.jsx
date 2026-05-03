@@ -2,7 +2,7 @@ import ProductList from "../components/productList";
 import ReactPaginate from "react-paginate";
 import useGetAllProducts from "../hooks/useGetAllProducts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { faInfinity, faSearch } from "@fortawesome/free-solid-svg-icons";
 export default function ProductsPage() {
   const {
     allProduct,
@@ -13,7 +13,9 @@ export default function ProductsPage() {
     handleUpdateCategory,
     category,
     handleSearch,
-    search
+    search,
+    handleUpdatePrice,
+    maxAndMinPrice,
   } = useGetAllProducts();
 
   return (
@@ -44,55 +46,55 @@ export default function ProductsPage() {
                   onClick={() => handleUpdateCategory("")}
                   className={`flex justify-between cursor-pointer ${category === "" && "text-primary"}`}
                 >
-                  <span className="font-medium">All</span> <span>(40)</span>
+                  <span className="font-medium">All</span>
                 </li>
                 <li
                   onClick={() => handleUpdateCategory("Toners")}
                   className={`flex justify-between cursor-pointer ${category === "Toners" && "text-primary"}`}
                 >
-                  <span>Toners</span> <span>(5)</span>
+                  <span>Toners</span> 
                 </li>
                 <li
                   onClick={() => handleUpdateCategory("Exfoliators")}
                   className={`flex justify-between cursor-pointer ${category === "Exfoliators" && "text-primary"}`}
                 >
-                  <span>Exfoliators</span> <span>(5)</span>
+                  <span>Exfoliators</span> 
                 </li>
                 <li
                   onClick={() => handleUpdateCategory("Eye Care")}
                   className={`flex justify-between cursor-pointer ${category === "Eye Care" && "text-primary"}`}
                 >
-                  <span>Eye Care</span> <span>(5)</span>
+                  <span>Eye Care</span> 
                 </li>
                 <li
                   onClick={() => handleUpdateCategory("Sun Protection")}
                   className={`flex justify-between cursor-pointer ${category === "Sun Protection" && "text-primary"}`}
                 >
-                  <span>Sun Protection</span> <span>(5)</span>
+                  <span>Sun Protection</span> 
                 </li>
                 <li
                   onClick={() => handleUpdateCategory("Masks")}
                   className={`flex justify-between cursor-pointer ${category === "Masks" && "text-primary"}`}
                 >
-                  <span>Masks</span> <span>(5)</span>
+                  <span>Masks</span> 
                 </li>
                 <li
                   onClick={() => handleUpdateCategory("Cleansers")}
                   className={`flex justify-between cursor-pointer ${category === "Cleansers" && "text-primary"}`}
                 >
-                  <span>Cleansers</span> <span>(5)</span>
+                  <span>Cleansers</span> 
                 </li>
                 <li
                   onClick={() => handleUpdateCategory("Moisturizers")}
                   className={`flex justify-between cursor-pointer ${category === "Moisturizers" && "text-primary"}`}
                 >
-                  <span>Moisturizers</span> <span>(5)</span>
+                  <span>Moisturizers</span> 
                 </li>
                 <li
                   onClick={() => handleUpdateCategory("Serums")}
                   className={`flex justify-between cursor-pointer ${category === "Serums" && "text-primary"}`}
                 >
-                  <span>Serums</span> <span>(5)</span>
+                  <span>Serums</span> 
                 </li>
               </ul>
             </div>
@@ -139,13 +141,21 @@ export default function ProductsPage() {
               <p className="text-sm text-base-content/60">
                 Showing 1-6 of 24 products
               </p>
-              <select className="select select-sm bg-base-200 border-none text-base-content">
-                <option>Sort by: Featured</option>
-                <option>Sort by: Newest</option>
-                <option>Sort by: Price (Low to High)</option>
+              <select
+                className="select select-sm bg-base-200 border-none text-base-content"
+                value={`${maxAndMinPrice.minPrice}-${maxAndMinPrice.maxPrice}`}
+                onChange={(e) => {
+                  const [min, max] = e.target.value.split("-");
+                  handleUpdatePrice(min, max);
+                }}
+              >
+                <option value="-">Sort by</option>
+                <option value="-25">Sort by: Price (0 → 25)</option>
+                <option value="25-50">Sort by: Price (25 → 50)</option>
+                <option value="50-">Sort by: Price (50 → ∞)</option>
               </select>
             </div>
-            
+
             <ProductList allProduct={allProduct} isLoading={isLoading} />
             <ReactPaginate
               breakLabel="..."
