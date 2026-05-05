@@ -7,12 +7,43 @@ export default memo(function Product({
   id,
   image,
   name,
-  price,
   description,
-  variantId,
-  stock
+  variantOne,
+  variantTwo,
+  maxPrice,
+  minPrice,
 }) {
-  const addProduct = useAddProduct(variantId,stock)
+  console.log(maxPrice)
+  console.log(minPrice)
+  console.log('50' > '40')
+  let selctedVariant;
+  if (
+    (maxPrice === "" || maxPrice === undefined) &&
+    (minPrice === "" || minPrice === undefined)
+  ) {
+    selctedVariant = variantOne;
+  }
+
+  if (variantOne.price >= minPrice && variantOne.price <= maxPrice) {
+    selctedVariant = variantOne;
+  }
+
+  if (variantTwo.price >= minPrice && variantTwo.price <= maxPrice) {
+    selctedVariant = variantTwo;
+  }
+
+  if (variantOne.price >= minPrice && maxPrice == '') {
+    selctedVariant = variantOne;
+  }
+  
+  if (variantTwo.price >= minPrice && maxPrice == '') {
+    selctedVariant = variantTwo;
+  }
+
+  const addProduct = useAddProduct(
+    selctedVariant.variant_id,
+    selctedVariant.stock,
+  );
   return (
     <Link
       to={`/products/${id}`}
@@ -31,12 +62,10 @@ export default memo(function Product({
       <div className="p-4 flex flex-col justify-between h-[calc(100%-14rem)]">
         {/* Title + Price */}
         <div className="flex justify-between items-start mb-2">
-          <p className="text-lg font-semibold  line-clamp-1">
-            {name}
-          </p>
+          <p className="text-lg font-semibold  line-clamp-1">{name}</p>
 
           <span className="  text-sm font-medium px-3 py-1 rounded-full">
-            ${price}
+            ${selctedVariant.price}
           </span>
         </div>
 

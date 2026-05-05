@@ -52,49 +52,49 @@ export default function ProductsPage() {
                   onClick={() => handleUpdateCategory("Toners")}
                   className={`flex justify-between cursor-pointer ${category === "Toners" && "text-primary"}`}
                 >
-                  <span>Toners</span> 
+                  <span>Toners</span>
                 </li>
                 <li
                   onClick={() => handleUpdateCategory("Exfoliators")}
                   className={`flex justify-between cursor-pointer ${category === "Exfoliators" && "text-primary"}`}
                 >
-                  <span>Exfoliators</span> 
+                  <span>Exfoliators</span>
                 </li>
                 <li
                   onClick={() => handleUpdateCategory("Eye Care")}
                   className={`flex justify-between cursor-pointer ${category === "Eye Care" && "text-primary"}`}
                 >
-                  <span>Eye Care</span> 
+                  <span>Eye Care</span>
                 </li>
                 <li
                   onClick={() => handleUpdateCategory("Sun Protection")}
                   className={`flex justify-between cursor-pointer ${category === "Sun Protection" && "text-primary"}`}
                 >
-                  <span>Sun Protection</span> 
+                  <span>Sun Protection</span>
                 </li>
                 <li
                   onClick={() => handleUpdateCategory("Masks")}
                   className={`flex justify-between cursor-pointer ${category === "Masks" && "text-primary"}`}
                 >
-                  <span>Masks</span> 
+                  <span>Masks</span>
                 </li>
                 <li
                   onClick={() => handleUpdateCategory("Cleansers")}
                   className={`flex justify-between cursor-pointer ${category === "Cleansers" && "text-primary"}`}
                 >
-                  <span>Cleansers</span> 
+                  <span>Cleansers</span>
                 </li>
                 <li
                   onClick={() => handleUpdateCategory("Moisturizers")}
                   className={`flex justify-between cursor-pointer ${category === "Moisturizers" && "text-primary"}`}
                 >
-                  <span>Moisturizers</span> 
+                  <span>Moisturizers</span>
                 </li>
                 <li
                   onClick={() => handleUpdateCategory("Serums")}
                   className={`flex justify-between cursor-pointer ${category === "Serums" && "text-primary"}`}
                 >
-                  <span>Serums</span> 
+                  <span>Serums</span>
                 </li>
               </ul>
             </div>
@@ -156,7 +156,12 @@ export default function ProductsPage() {
               </select>
             </div>
 
-            <ProductList allProduct={allProduct} isLoading={isLoading} />
+            <ProductList
+              maxPrice={maxAndMinPrice.maxPrice}
+              minPrice={maxAndMinPrice.minPrice}
+              allProduct={allProduct}
+              isLoading={isLoading}
+            />
             <ReactPaginate
               breakLabel="..."
               nextLabel="›"
@@ -180,3 +185,4 @@ export default function ProductsPage() {
     </section>
   );
 }
+console.log("50-".split('-'))

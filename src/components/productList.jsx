@@ -2,7 +2,7 @@ import Product from "./Product";
 import { memo } from "react";
 import ProductsLodaingScreen from "./ProductsLodaingScreen";
 
-export default memo(function ProductList({ allProduct, isLoading }) {
+export default memo(function ProductList({ allProduct, isLoading,maxPrice,minPrice }) {
   return (
     <>
       {isLoading && <ProductsLodaingScreen />}
@@ -19,9 +19,10 @@ export default memo(function ProductList({ allProduct, isLoading }) {
             name={product.product_name}
             image={product.images[0].image_url}
             description={product.description}
-            price={product.variants[0].price}
-            variantId={product.variants[0].variant_id}
-            stock={product.variants[0].stock}
+            variantOne={product.variants[0]}
+            variantTwo={product.variants[1]}
+            maxPrice={maxPrice}
+            minPrice={minPrice}
           />
         ))}
       </div>
