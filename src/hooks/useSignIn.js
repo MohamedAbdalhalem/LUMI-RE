@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import { AuthContext } from "../store/AuthContext";
 import { validatEmail, validatPassword } from "../lib/validation";
 import Cookies from "js-cookie";
+import apiUrl from "../lib/apiUrl";
 export default function useSignIn() {
   const { setToken } = use(AuthContext);
   const [errorMessage, setErrorMessage] = useState(false);
@@ -40,7 +41,7 @@ export default function useSignIn() {
 
     return await axios
       .post(
-        "https://depi-s-gp-backend-production.up.railway.app/api/auth/login",
+        `${apiUrl}auth/login`,
         {
           email,
           password,

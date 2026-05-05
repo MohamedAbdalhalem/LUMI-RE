@@ -3,12 +3,13 @@ import { AuthContext } from '../store/AuthContext';
 import { use } from 'react';
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
+import apiUrl from '../lib/apiUrl';
 
 export default function useAddresses() {
   const { token } = use(AuthContext);
    async function getAllAddresses() {
       return await axios.get(
-        `https://depi-s-gp-backend-production.up.railway.app/api/addresses`,
+        `${apiUrl}addresses`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -27,7 +28,7 @@ export default function useAddresses() {
       async function (id) {
         await axios
           .delete(
-            `https://depi-s-gp-backend-production.up.railway.app/api/addresses/${id}`,
+            `${apiUrl}addresses/${id}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -46,7 +47,7 @@ export default function useAddresses() {
     async function handleAddAddress(newAddress) {
       await axios
         .post(
-          "https://depi-s-gp-backend-production.up.railway.app/api/addresses",
+          `${apiUrl}addresses`,
           newAddress,
           {
             headers: {
@@ -65,7 +66,7 @@ export default function useAddresses() {
     const handleUpdateAddress = useCallback( async function (updatedAddress, id) {
       await axios
         .put(
-          `https://depi-s-gp-backend-production.up.railway.app/api/addresses/${id}`,
+          `${apiUrl}addresses/${id}`,
           updatedAddress,
           {
             headers: {

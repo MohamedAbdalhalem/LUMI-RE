@@ -2,13 +2,14 @@ import axios from "axios";
 import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import apiUrl from "../lib/apiUrl";
 
 export default function useProductDetials() {
     const [selectedVariant, setSelectedVariant] = useState({});
   const { id } = useParams();
   async function getProductDetials() {
     const response = await axios.get(
-      `https://depi-s-gp-backend-production.up.railway.app/api/products/${id}`,
+      `${apiUrl}products/${id}`,
     );
     setSelectedVariant(() => response.data.data.variants[0]);
     return response;

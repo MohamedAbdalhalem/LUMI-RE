@@ -5,6 +5,7 @@ import { CartContext } from "../store/CartContext";
 import { AuthContext } from "../store/AuthContext";
 import axios from "axios";
 import { useActionState } from "react";
+import apiUrl from "../lib/apiUrl";
 
 export default function useMakeOrder() {
   const { token } = use(AuthContext);
@@ -13,7 +14,7 @@ export default function useMakeOrder() {
   async function handleMakeOrder(prevState, formData) {
     await axios
       .post(
-        `https://depi-s-gp-backend-production.up.railway.app/api/orders`,
+        `${apiUrl}orders`,
         null,
         {
           headers: {

@@ -8,6 +8,7 @@ import {
   validatPassword,
   validatPhone,
 } from "../lib/validation";
+import apiUrl from "../lib/apiUrl";
 
 export default function useSignUp() {
   const [errorMessage, setErrorMessage] = useState(null);
@@ -67,7 +68,7 @@ export default function useSignUp() {
 
     return await axios
       .post(
-        `https://depi-s-gp-backend-production.up.railway.app/api/auth/register`,
+        `${apiUrl}auth/register`,
         {
           email,
           password,

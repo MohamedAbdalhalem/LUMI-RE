@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
+import apiUrl from "../lib/apiUrl";
 import { AuthContext } from "./AuthContext";
 import { toast } from "sonner";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,7 +22,7 @@ export default function CartContextProvider({ children }) {
 
   async function getCartProducts() {
     axios
-      .get("https://depi-s-gp-backend-production.up.railway.app/api/cart", {
+      .get(`${apiUrl}cart`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -37,7 +38,7 @@ export default function CartContextProvider({ children }) {
   async function handleAddProductToCart(productData) {
     axios
       .post(
-        "https://depi-s-gp-backend-production.up.railway.app/api/cart/items",
+        `${apiUrl}cart/items`,
         productData,
         {
           headers: {
@@ -64,7 +65,7 @@ export default function CartContextProvider({ children }) {
   async function handleRemoveProductFromCart(cartItemId) {
     await axios
       .delete(
-        `https://depi-s-gp-backend-production.up.railway.app/api/cart/items/${cartItemId}`,
+        `${apiUrl}cart/items/${cartItemId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -91,7 +92,7 @@ export default function CartContextProvider({ children }) {
   async function handleUpdateQuantity(cartItemId, quantity) {
     axios
       .put(
-        `https://depi-s-gp-backend-production.up.railway.app/api/cart/items/${cartItemId}`,
+        `${apiUrl}cart/items/${cartItemId}`,
         {
           quantity,
         },

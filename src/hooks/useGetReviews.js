@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import React from "react";
+import apiUrl from "../lib/apiUrl";
 import { useParams } from "react-router";
 
 export default function useGetReviews() {
@@ -8,7 +9,7 @@ export default function useGetReviews() {
 
   async function handleGetReviews() {
     return await axios.get(
-      `https://depi-s-gp-backend-production.up.railway.app/api/products/${id}/reviews`,
+      `${apiUrl}products/${id}/reviews`,
     );
   }
 

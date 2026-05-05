@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useEffect, useMemo, useState } from "react";
+import apiUrl from "../lib/apiUrl";
 
 export default function useGetAllProducts() {
   const [pageNumber, setPageNumber] = useState(1);
@@ -12,7 +13,7 @@ export default function useGetAllProducts() {
   });
   async function getAllProducts() {
     return await axios.get(
-      "https://depi-s-gp-backend-production.up.railway.app/api/products",
+      `${apiUrl}products`,
       {
         params: {
           limit: 9,
